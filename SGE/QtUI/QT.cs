@@ -77,6 +77,7 @@ public static class Qt
         
 
         //其余tab窗口
+        ReadmeTab.Build(Instance);
         SettingTab.Build(Instance);
 
         //心关窗口

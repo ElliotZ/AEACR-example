@@ -68,6 +68,7 @@ public static class Qt
         DncSettings.Instance.JobViewSave.QtUnVisibleList.TryAdd("90伶俐");
 
         //其余tab窗口
+        ReadmeTab.Build(Instance);
         SettingTab.Build(Instance);
         
         //舞伴窗口

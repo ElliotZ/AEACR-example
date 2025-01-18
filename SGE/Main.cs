@@ -24,8 +24,7 @@ public class DncRotationEntry : IRotationEntry, IDisposable
                                            "小吉轮流做，明年到我家。\n\n\n" +
                                            "极致的输出，极致的享受\n" +
                                            "从现在开始你的目的就只有一个\n\n" +
-                                           "—— 那就是成为logs之神\n\n" +
-                                           "推荐复唱：2.49、2.5 (2.49对网络波动容错率更高)";
+                                           "—— 那就是成为logs之神";
 
 
     private readonly List<SlotResolverData> _slotResolvers =
@@ -77,7 +76,8 @@ public class DncRotationEntry : IRotationEntry, IDisposable
             AcrType = _acrType,
             MinLevel = _minLevel,
             MaxLevel = _maxLevel,
-            Description = _description
+            Description = _description,
+            
         };
         rot.AddOpener(level =>
         {

@@ -84,7 +84,7 @@ public class 舞伴hotkey(int index) : IHotkeyResolver
         if (SpellId.GetSpell().Cooldown.TotalMilliseconds > 0 ||
             Core.Resolve<JobApi_Dancer>().IsDancing ||
             !PartyHelper.Party[index].IsTargetable ||
-            !PartyHelper.Party[index].IsDead() ||
+            PartyHelper.Party[index].IsDead() ||
             Core.Me.Distance(PartyHelper.Party[index]) > SettingMgr.GetSetting<GeneralSettings>().AttackRange + 27)
             return -2;
         return 0;

@@ -1,6 +1,5 @@
 using System.Numerics;
 using AEAssist;
-using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;

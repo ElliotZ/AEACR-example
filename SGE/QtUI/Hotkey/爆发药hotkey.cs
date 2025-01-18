@@ -6,7 +6,6 @@ using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
-using ImGuiNET;
 using Data = yoyokity.SGE.SlotResolver.Data;
 using ItemHelper = AEAssist.Helper.ItemHelper;
 
@@ -18,14 +17,7 @@ public class 爆发药hotkey : IHotkeyResolver
 
     public void Draw(Vector2 size)
     {
-        var iconSize = size * 0.8f;
-        //技能图标
-        ImGui.SetCursorPos(size * 0.1f);
-
-        if (Core.Resolve<MemApiIcon>().TryGetTexture(ImgPath, out var textureWrap))
-        {
-            ImGui.Image(textureWrap.ImGuiHandle, iconSize);
-        }
+        HotkeyHelper.DrawSpellImage(size, ImgPath);
     }
 
     public void DrawExternal(Vector2 size, bool isActive)
@@ -106,7 +98,7 @@ public class 爆发药hotkey : IHotkeyResolver
         }
     }
 
-    private async Task 红豆爆发药(int delay = 0)
+    private static async Task 红豆爆发药(int delay = 0)
     {
         BattleData.Instance.Lock发炎 = true;
         if (delay > 0) await Coroutine.Instance.WaitAsync(delay);
@@ -118,7 +110,7 @@ public class 爆发药hotkey : IHotkeyResolver
         BattleData.Instance.Lock发炎 = false;
     }
 
-    private async Task 贤炮爆发药(int delay = 0)
+    private static async Task 贤炮爆发药(int delay = 0)
     {
         BattleData.Instance.Lock发炎 = true;
         if (delay > 0) await Coroutine.Instance.WaitAsync(delay);
@@ -130,7 +122,7 @@ public class 爆发药hotkey : IHotkeyResolver
         BattleData.Instance.Lock发炎 = false;
     }
 
-    private async Task 爆发药(int delay = 0)
+    private static async Task 爆发药(int delay = 0)
     {
         BattleData.Instance.Lock发炎 = true;
         if (delay > 0) await Coroutine.Instance.WaitAsync(delay);
@@ -141,7 +133,7 @@ public class 爆发药hotkey : IHotkeyResolver
         BattleData.Instance.Lock发炎 = false;
     }
 
-    private async Task 爆发药强插(int delay = 0)
+    private static async Task 爆发药强插(int delay = 0)
     {
         BattleData.Instance.Lock发炎 = true;
         if (delay > 0) await Coroutine.Instance.WaitAsync(delay);

@@ -5,14 +5,12 @@ using yoyokity.SGE.QtUI;
 
 namespace yoyokity.SGE.Triggers;
 
-//这个类也可以完全复制 改一下上面的namespace和对QT的引用就行
 public class TriggerActionHotkey : ITriggerAction
 {
-    public string DisplayName { get; } = "Sage/Hotkey";
+    public string DisplayName => "Sage/Hotkey";
     public string Remark { get; set; }
 
     public string Key = "";
-    public bool Value;
 
     // 辅助数据 因为是private 所以不存档
     private int _selectIndex;

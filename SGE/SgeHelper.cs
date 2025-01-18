@@ -1,6 +1,5 @@
 ﻿using AEAssist;
 using AEAssist.CombatRoutine;
-using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;

@@ -32,8 +32,6 @@ public static class Qt
 
     public static void Build()
     {
-        // JobViewSave是AE底层提供的QT设置存档类 在你自己的设置里定义即可
-        // 第二个参数是你设置文件的Save类 第三个参数是QT窗口标题
         Instance = new JobViewWindow(DncSettings.Instance.JobViewSave, DncSettings.Instance.Save, "yoyo舞者");
         Instance.AddQt("爆发药", false);
         Instance.AddQt("爆发药2分", true, "第一个爆发药是否在2分钟时使用\n后续爆发药依然是好了之后对齐大舞用");
@@ -52,14 +50,17 @@ public static class Qt
         Instance.AddQt("90伶俐", false, "将剑舞阈值提高到90伶俐");
 
 
-        Instance.AddHotkey("前冲步", new HotKeyResolver_NormalSpell(16010, SpellTargetType.Self));
-        Instance.AddHotkey("桑巴", new HotKeyResolver_NormalSpell(16012, SpellTargetType.Self));
+        Instance.AddHotkey("前冲步",
+            new HotKeyResolver(16010, SpellTargetType.Self, false));
+        Instance.AddHotkey("桑巴",
+            new HotKeyResolver(16012, SpellTargetType.Self, false));
         Instance.AddHotkey("LB", new HotKeyResolver_LB());
         Instance.AddHotkey("防击退",
-            new HotKeyResolver_NormalSpell(SpellsDefine.ArmsLength, SpellTargetType.Self));
+            new HotKeyResolver(SpellsDefine.ArmsLength, SpellTargetType.Self, false));
         Instance.AddHotkey("内丹",
-            new HotKeyResolver_NormalSpell(SpellsDefine.SecondWind, SpellTargetType.Self));
-        Instance.AddHotkey("华尔兹", new HotKeyResolver_NormalSpell(Spells.华尔兹, SpellTargetType.Self));
+            new HotKeyResolver(SpellsDefine.SecondWind, SpellTargetType.Self, false));
+        Instance.AddHotkey("华尔兹",
+            new HotKeyResolver(Spells.华尔兹, SpellTargetType.Self, false));
         Instance.AddHotkey("秒开关即兴", new 即兴表演hotkey());
         Instance.AddHotkey("疾跑", new HotKeyResolver_疾跑());
         Instance.AddHotkey("爆发药", new HotKeyResolver_Potion());
@@ -70,7 +71,7 @@ public static class Qt
         //其余tab窗口
         ReadmeTab.Build(Instance);
         SettingTab.Build(Instance);
-        
+
         //舞伴窗口
         舞伴hotkeyWindow.Build(Instance);
     }

@@ -6,8 +6,6 @@ using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
-using AEAssist.MemoryApi;
-using ImGuiNET;
 using Data = yoyokity.DNC.SlotResolver.Data;
 
 namespace yoyokity.DNC.QtUI;
@@ -52,72 +50,50 @@ public class 舞伴hotkey(int index) : IHotkeyResolver
 
     public void Draw(Vector2 size)
     {
-        var id = SpellId;
-        if (Core.Me.HasLocalPlayerAura(Data.Buffs.舞伴buff))
-            id = Data.Spells.解除舞伴;
-
-        var size1 = size * 0.8f;
-        ImGui.SetCursorPos(size * 0.1f);
-        if (!Core.Resolve<MemApiIcon>().GetActionTexture(id, out var textureWrap))
-            return;
-        ImGui.Image(textureWrap.ImGuiHandle, size1);
-
-        if (SpellId.GetSpell().Cooldown.TotalMilliseconds > 0 || Core.Resolve<JobApi_Dancer>().IsDancing)
-        {
-            // Use ImGui.GetItemRectMin() and ImGui.GetItemRectMax() for exact icon bounds
-            Vector2 overlayMin = ImGui.GetItemRectMin();
-            Vector2 overlayMax = ImGui.GetItemRectMax();
-
-            // Draw a grey overlay over the icon
-            ImGui.GetWindowDrawList().AddRectFilled(
-                overlayMin,
-                overlayMax,
-                ImGui.ColorConvertFloat4ToU32(new Vector4(0, 0, 0, 0.5f))); // 50% transparent grey
-        }
-
-        var cooldownRemaining = SpellId.GetSpell().Cooldown.TotalMilliseconds / 1000;
-        if (cooldownRemaining > 0)
-        {
-            // Convert cooldown to seconds and format as string
-            string cooldownText = Math.Ceiling(cooldownRemaining).ToString();
-
-            // 计算文本位置，向左下角偏移
-            Vector2 textPos = ImGui.GetItemRectMin();
-            textPos.X -= 1; // 向左移动一点
-            textPos.Y += size1.Y - ImGui.CalcTextSize(cooldownText).Y + 5; // 向下移动一点
-
-            // 绘制冷却时间文本
-            ImGui.GetWindowDrawList()
-                .AddText(textPos, ImGui.ColorConvertFloat4ToU32(new Vector4(1, 1, 1, 1)), cooldownText);
-        }
+        HotkeyHelper.DrawSpellImage(size, SpellId);
     }
 
     public void DrawExternal(Vector2 size, bool isActive)
     {
-        /*SpellTargetType targetType = Index >= 1 && Index <= 8 ? (SpellTargetType)(Index + 3) : SpellTargetType.Target;
-        SpellHelper.DrawSpellInfo(Core.Resolve<MemApiSpell>().CheckActionChange(this.SpellId).GetSpell(targetType), size, isActive);*/
+        if (_check() >= 0)
+        {
+            if (isActive)
+            {
+                HotkeyHelper.DrawActiveState(size);
+            }
+            else
+            {
+                HotkeyHelper.DrawGeneralState(size);
+            }
+        }
+        else
+        {
+            HotkeyHelper.DrawDisabledState(size);
+        }
+
+        HotkeyHelper.DrawCooldownText(SpellId.GetSpell(), size);
     }
 
     public int Check()
     {
-        if (SpellId.GetSpell().Cooldown.TotalMilliseconds != 0 ||
-            Core.Resolve<JobApi_Dancer>().IsDancing)
-            return -1;
+        return _check();
+    }
+
+    private int _check()
+    {
+        if (SpellId.GetSpell().Cooldown.TotalMilliseconds > 0 ||
+            Core.Resolve<JobApi_Dancer>().IsDancing ||
+            !PartyHelper.Party[index].IsTargetable ||
+            !PartyHelper.Party[index].IsDead() ||
+            Core.Me.Distance(PartyHelper.Party[index]) > SettingMgr.GetSetting<GeneralSettings>().AttackRange + 27)
+            return -2;
         return 0;
     }
 
     public void Run()
     {
-        ClosedPosition();
-    }
-
-    private void ClosedPosition()
-    {
         var partyMembers = PartyHelper.Party;
         if (partyMembers.Count < index + 1)
-            return;
-        if (SpellId.GetSpell().Cooldown.TotalMilliseconds != 0 ||
-            Core.Resolve<JobApi_Dancer>().IsDancing)
             return;
 
         if (GCDHelper.GetGCDCooldown() <= 0)

@@ -4,8 +4,6 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.MemoryApi;
-using ImGuiNET;
 using Data = yoyokity.SGE.SlotResolver.Data;
 
 namespace yoyokity.SGE.QtUI;
@@ -14,12 +12,7 @@ public class 贤炮hotkey : IHotkeyResolver
 {
     public void Draw(Vector2 size)
     {
-        var id = Core.Resolve<MemApiSpell>().CheckActionChange(Data.Spells.贤炮);
-        var size1 = size * 0.8f;
-        ImGui.SetCursorPos(size * 0.1f);
-        if (!Core.Resolve<MemApiIcon>().GetActionTexture(id, out var textureWrap))
-            return;
-        ImGui.Image(textureWrap.ImGuiHandle, size1);
+        HotkeyHelper.DrawSpellImage(size, Data.Spells.贤炮);
     }
 
     private static int _check()
@@ -32,44 +25,23 @@ public class 贤炮hotkey : IHotkeyResolver
     public void DrawExternal(Vector2 size, bool isActive)
     {
         var spell = Data.Spells.贤炮.GetSpell();
-        var cd = spell.Cooldown.TotalSeconds;
-        ImGui.SetCursorPos(new Vector2(0, 0));
         if (_check() >= 0)
         {
             if (isActive)
             {
-                //激活状态
-                if (Core.Resolve<MemApiIcon>().TryGetTexture(@"Resources\Spells\Icon\activeaction.png",
-                        out var textureWrapActive))
-                    ImGui.Image(textureWrapActive.ImGuiHandle, size);
+                HotkeyHelper.DrawActiveState(size);
             }
             else
             {
-                //常规状态
-                if (Core.Resolve<MemApiIcon>().TryGetTexture(@"Resources\Spells\Icon\iconframe.png",
-                        out var textureWrapNormal))
-                    ImGui.Image(textureWrapNormal.ImGuiHandle, size);
+                HotkeyHelper.DrawGeneralState(size);
             }
         }
         else
         {
-            //变黑
-            ImGui.SetCursorPos(new Vector2(0, 0));
-            if (Core.Resolve<MemApiIcon>().TryGetTexture(@"Resources\Spells\Icon\icona_frame_disabled.png",
-                    out var textureWrapBlack))
-                ImGui.Image(textureWrapBlack.ImGuiHandle, size);
+            HotkeyHelper.DrawDisabledState(size);
         }
 
-        //cd文字显示
-        if (cd > 0 && (int)(cd * 1000) + 1 !=
-            Core.Resolve<MemApiSpell>().GetGCDDuration() - Core.Resolve<MemApiSpell>().GetElapsedGCD())
-        {
-            //cd
-            if (spell.Id != 0)
-                cd %= spell.RecastTime.TotalSeconds / (float)spell.MaxCharges;
-            ImGui.SetCursorPos(new Vector2(4, size.Y - 17));
-            ImGui.Text($"{(int)cd + 1}");
-        }
+        HotkeyHelper.DrawCooldownText(spell, size);
     }
 
     public int Check()
@@ -104,7 +76,7 @@ public class 贤炮hotkey : IHotkeyResolver
         }
     }
 
-    private async Task 贤炮(int delay = 0, bool 活化 = false)
+    private static async Task 贤炮(int delay = 0, bool 活化 = false)
     {
         if (delay > 0) await Coroutine.Instance.WaitAsync(delay);
         if (活化)

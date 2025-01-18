@@ -27,8 +27,6 @@ public static class Qt
 
     public static void Build()
     {
-        // JobViewSave是AE底层提供的QT设置存档类 在你自己的设置里定义即可
-        // 第二个参数是你设置文件的Save类 第三个参数是QT窗口标题
         Instance = new JobViewWindow(SgeSettings.Instance.JobViewSave, SgeSettings.Instance.Save, "yoyo贤者");
         Instance.AddQt("爆发药", false, "只打起手爆发药，后续用轴打或者手动打");
         Instance.AddQt("AOE", true);

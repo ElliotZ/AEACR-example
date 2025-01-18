@@ -5,8 +5,6 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
-using AEAssist.MemoryApi;
-using ImGuiNET;
 using Data = yoyokity.SGE.SlotResolver.Data;
 
 namespace yoyokity.SGE.QtUI;
@@ -15,12 +13,7 @@ public class 突进hotkey : IHotkeyResolver
 {
     public void Draw(Vector2 size)
     {
-        var id = Core.Resolve<MemApiSpell>().CheckActionChange(Data.Spells.神翼);
-        var size1 = size * 0.8f;
-        ImGui.SetCursorPos(size * 0.1f);
-        if (!Core.Resolve<MemApiIcon>().GetActionTexture(id, out var textureWrap))
-            return;
-        ImGui.Image(textureWrap.ImGuiHandle, size1);
+        HotkeyHelper.DrawSpellImage(size, Data.Spells.神翼);
     }
 
     public void DrawExternal(Vector2 size, bool isActive)

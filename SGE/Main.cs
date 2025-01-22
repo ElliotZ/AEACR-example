@@ -15,7 +15,7 @@ public class DncRotationEntry : IRotationEntry, IDisposable
     public string AuthorName { get; set; } = Helper.AuthorName;
     private readonly Jobs _targetJob = Jobs.Sage;
     private readonly AcrType _acrType = AcrType.Both;
-    private readonly int _minLevel = 70;
+    private readonly int _minLevel = 15;
     private readonly int _maxLevel = 100;
 
     private readonly string _description = "小挂不是挂，亲妈是你妈。\n" +

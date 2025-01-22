@@ -13,8 +13,8 @@ public class DncRotationEntry : IRotationEntry, IDisposable
 {
     public string AuthorName { get; set; } = Helper.AuthorName;
     private readonly Jobs _targetJob = Jobs.Dancer;
-    private readonly AcrType _acrType = AcrType.HighEnd; //高难专用
-    private readonly int _minLevel = 100;
+    private readonly AcrType _acrType = AcrType.Both; //高难专用
+    private readonly int _minLevel = 15;
     private readonly int _maxLevel = 100;
 
     private readonly string _description = "小挂不是挂，亲妈是你妈。\n" +

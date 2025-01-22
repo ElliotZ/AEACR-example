@@ -26,6 +26,8 @@ public static class SettingTab
         ImGui.Checkbox("摁下箭毒Hotkey后，没有红豆就打即刻", ref SgeSettings.Instance.没有箭毒打即刻);
         ImGui.Checkbox("即刻移动", ref SgeSettings.Instance.即刻移动);
         ImGuiHelper.SetHoverTooltip("不推荐开，让轴来固定打即刻更好。");
+        ImGui.Checkbox("没有妈妈的自嗨打法", ref SgeSettings.Instance.没妈妈自嗨打法);
+        ImGuiHelper.SetHoverTooltip("开了之后将无视团辅，爆发有就打，个人rd收益会更高，但是可能会被炒股队友出警嗷！");
         ImGui.Dummy(new Vector2(0, 5));
         ImGuiHelper.LeftInputInt("醒梦阈值", ref SgeSettings.Instance.醒梦阈值, 1, 100, 5);
     }

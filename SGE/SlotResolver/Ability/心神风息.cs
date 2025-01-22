@@ -4,16 +4,17 @@ using yoyokity.SGE.QtUI;
 
 namespace yoyokity.SGE.SlotResolver.Ability;
 
-public class 心神风息: ISlotResolver
+public class 心神风息 : ISlotResolver
 {
     public int Check()
     {
         if (!Qt.Instance.GetQt("心神")) return -1;
         if (!Data.Spells.心神风息.GetSpell().IsReadyWithCanCast()) return -2;
-        
+
         //开局3个gcd内不打
-        if (AI.Instance.BattleData.CurrBattleTimeInMs <= 2500 * 3) return -3;
-        
+        if (!SgeSettings.Instance.没妈妈自嗨打法 && 
+            AI.Instance.BattleData.CurrBattleTimeInMs <= 2500 * 3) return -3;
+
         return 0;
     }
 

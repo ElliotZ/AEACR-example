@@ -21,7 +21,8 @@ public class 发炎 : ISlotResolver
             SettingMgr.GetSetting<GeneralSettings>().AttackRange + 3) return -2;
 
         //开局3个gcd内不打
-        if (AI.Instance.BattleData.CurrBattleTimeInMs <= 2500 * 3) return -3;
+        if (!SgeSettings.Instance.没妈妈自嗨打法 &&
+            AI.Instance.BattleData.CurrBattleTimeInMs <= 2500 * 3) return -3;
 
         //在团辅中就打
         if (Helper.In团辅()) return 1;
@@ -33,8 +34,8 @@ public class 发炎 : ISlotResolver
         if (Qt.Instance.GetQt("倾泻资源")) return 3;
 
         //快溢出了打
-        if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2600) return 4;
-        
+        if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2000) return 4;
+
         //周围多余一个人就打
         if (TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget()!, 6, 5) > 1) return 5;
 

@@ -66,6 +66,7 @@ public class SgeSettings
     public bool 贤炮爆发药 = true;
     public bool T无敌给混合 = true;
     public bool 没有箭毒打即刻 = true;
+    public bool 没妈妈自嗨打法 = false;
 
     //
     public int 灵橡阈值 = 40;

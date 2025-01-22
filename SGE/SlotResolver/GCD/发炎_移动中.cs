@@ -21,7 +21,8 @@ public class 发炎_移动中 : ISlotResolver
             SettingMgr.GetSetting<GeneralSettings>().AttackRange + 3) return -2;
 
         //开局3个gcd内不打
-        if (AI.Instance.BattleData.CurrBattleTimeInMs <= 2500 * 3) return -3;
+        if (!SgeSettings.Instance.没妈妈自嗨打法 &&
+            AI.Instance.BattleData.CurrBattleTimeInMs <= 2500 * 3) return -3;
 
         return 0;
     }

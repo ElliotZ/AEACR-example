@@ -3,6 +3,7 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
+using yoyokity.Common;
 using yoyokity.DNC.QtUI;
 
 namespace yoyokity.DNC.SlotResolver.GCD;
@@ -46,12 +47,15 @@ public class 剑舞拂晓舞 : ISlotResolver
 
     private static uint GetSpells()
     {
-        return Data.Spells.拂晓舞.IsUnlock() && Core.Me.HasAura(Data.Buffs.拂晓舞预备) ? 
-            Data.Spells.拂晓舞 : Data.Spells.剑舞;
+        return Data.Spells.拂晓舞.IsUnlock() && Core.Me.HasAura(Data.Buffs.拂晓舞预备) ? Data.Spells.拂晓舞 : Data.Spells.剑舞;
     }
 
     public void Build(Slot slot)
     {
-        slot.Add(GetSpells().GetSpell());
+        var target = Data.Spells.剑舞.最优aoe目标(2);
+        var spell = !Qt.Instance.GetQt("AOE") || target == null
+            ? GetSpells().GetSpell()
+            : GetSpells().GetSpell(target);
+        slot.Add(spell);
     }
 }

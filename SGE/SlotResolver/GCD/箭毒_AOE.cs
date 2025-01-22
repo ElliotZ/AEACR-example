@@ -1,6 +1,7 @@
 ﻿using AEAssist.CombatRoutine.Module;
 using AEAssist.Helper;
 using Dalamud.Game.ClientState.Objects.Types;
+using yoyokity.Common;
 using yoyokity.SGE.QtUI;
 
 namespace yoyokity.SGE.SlotResolver.GCD;
@@ -15,7 +16,7 @@ public class 箭毒_AOE : ISlotResolver
         if (!Data.Spells.箭毒.GetSpell().IsUnlock()) return -1;
         if (SgeHelper.红豆 <= 0) return -2;
 
-        Target = TargetHelper.GetMostCanTargetObjects(Data.Spells.箭毒adaptive, 2);
+        Target = Data.Spells.箭毒adaptive.最优aoe目标(2);
         if (Target == null) return -3;
 
         return 0;

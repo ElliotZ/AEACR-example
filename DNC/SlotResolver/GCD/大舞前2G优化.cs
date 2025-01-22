@@ -4,6 +4,8 @@ using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.JobApi;
 using AEAssist.MemoryApi;
+using yoyokity.Common;
+using yoyokity.DNC.QtUI;
 
 namespace yoyokity.DNC.SlotResolver.GCD;
 
@@ -11,15 +13,6 @@ public class 大舞前2G优化 : ISlotResolver
 {
     private static int 伶俐 => Core.Resolve<JobApi_Dancer>().Esprit;
     private static int 幻扇 => Core.Resolve<JobApi_Dancer>().FourFoldFeathers;
-
-    private class 落幕舞扇舞序 : ISlotSequence
-    {
-        public List<Action<Slot>> Sequence =>
-        [
-            (Slot slot) => slot.Add(Data.Spells.落幕舞.GetSpell()),
-            (Slot slot) => slot.Add(Data.Spells.扇舞序.GetSpell())
-        ];
-    }
 
     public int Check()
     {
@@ -38,10 +31,23 @@ public class 大舞前2G优化 : ISlotResolver
 
     public void Build(Slot slot)
     {
-        slot.Add(Data.Spells.剑舞.GetSpell());
+        var target = Data.Spells.剑舞.最优aoe目标(2);
+        var spell = !Qt.Instance.GetQt("AOE") || target == null
+            ? Data.Spells.剑舞.GetSpell()
+            : Data.Spells.剑舞.GetSpell(target);
+        var spell2 = !Qt.Instance.GetQt("AOE") || target == null
+            ? Data.Spells.落幕舞.GetSpell()
+            : Data.Spells.落幕舞.GetSpell(target);
+
+        slot.Add(spell);
+
         if (幻扇 == 4)
-            slot.AppendSequence(new 落幕舞扇舞序()); //进大舞时没有剑舞落幕舞，扇舞有4个时泄掉一个
+            //进大舞时没有剑舞落幕舞，扇舞有4个时泄掉一个
+        {
+            slot.Add(spell2);
+            slot.Add(Data.Spells.扇舞序.GetSpell());
+        }
         else
-            slot.Add(Data.Spells.落幕舞.GetSpell());
+            slot.Add(spell2);
     }
 }

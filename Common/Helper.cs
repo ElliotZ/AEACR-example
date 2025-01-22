@@ -4,6 +4,7 @@ using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
+using Dalamud.Game.ClientState.Objects.Types;
 
 namespace yoyokity.Common;
 
@@ -131,6 +132,12 @@ public static class Helper
 
     public static bool 目标有任意我的buff(List<uint> buffs) =>
         buffs.Any(buff => Core.Me.GetCurrTarget()!.HasLocalPlayerAura(buff));
+
+
+    public static IBattleChara? 最优aoe目标(this uint spellId, int count)
+    {
+        return TargetHelper.GetMostCanTargetObjects(spellId, count);
+    }
 
     public static bool In团辅()
     {

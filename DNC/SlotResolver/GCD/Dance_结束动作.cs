@@ -12,6 +12,7 @@ public class Dance_结束动作 : ISlotResolver
     public int Check()
     {
         if (!Qt.Instance.GetQt("延迟技能")) return -1;
+        if (!Data.Spells.结束动作.IsUnlock()) return -1;
         if (!Core.Me.HasAura(Data.Buffs.结束动作预备)) return -2;
 
         if (Data.Spells.结束动作.GetSpell().Cooldown.TotalMilliseconds > Helper.小舞卡gcd最长时间) return -3;

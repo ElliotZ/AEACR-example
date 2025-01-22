@@ -9,6 +9,7 @@ public class 流星舞 : ISlotResolver
 {
     public int Check()
     {
+        if (!Data.Spells.流星舞.IsUnlock()) return -1;
         if (!Core.Me.HasAura(Data.Buffs.流星舞预备)) return -1;
         return 0;
     }

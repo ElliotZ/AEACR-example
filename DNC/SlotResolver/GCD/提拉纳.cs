@@ -14,6 +14,7 @@ public class 提拉纳 : ISlotResolver
 
     public int Check()
     {
+        if (!Data.Spells.提拉纳.IsUnlock()) return -1;
         if (!Core.Me.HasAura(Data.Buffs.提拉纳预备)) return -1;
 
         //倾泻资源qt

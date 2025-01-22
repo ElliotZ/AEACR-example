@@ -10,6 +10,7 @@ public class 落幕舞_高优先 : ISlotResolver
 {
     public int Check()
     {
+        if (!Data.Spells.落幕舞.IsUnlock()) return -1;
         if (!Core.Me.HasAura(Data.Buffs.落幕舞预备)) return -1;
 
         //判断是否即将过期

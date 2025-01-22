@@ -17,17 +17,18 @@ public class 剑舞拂晓舞 : ISlotResolver
     public int Check()
     {
         if (!Qt.Instance.GetQt("剑舞") && !Core.Me.HasAura(Data.Buffs.拂晓舞预备)) return -1;
+        if (!Data.Spells.剑舞.IsUnlock()) return -1;
         if (伶俐 < 50) return -1;
-        
+
         //90伶俐QT
         if (Qt.Instance.GetQt("90伶俐") && 伶俐 < 90) return -2;
 
         //延迟控制不打拂晓舞
         if (Core.Me.HasAura(Data.Buffs.拂晓舞预备) && !Qt.Instance.GetQt("延迟技能")) return -2;
-        
+
         //倾泻资源qt
         if (Qt.Instance.GetQt("倾泻资源")) return 5;
-        
+
         //倾泻伶俐qt
         if (Qt.Instance.GetQt("倾泻伶俐")) return 7;
 
@@ -43,13 +44,14 @@ public class 剑舞拂晓舞 : ISlotResolver
         return -1;
     }
 
-    private static uint GetSpell()
+    private static uint GetSpells()
     {
-        return Core.Me.HasAura(Data.Buffs.拂晓舞预备) ? Data.Spells.拂晓舞 : Data.Spells.剑舞;
+        return Data.Spells.拂晓舞.IsUnlock() && Core.Me.HasAura(Data.Buffs.拂晓舞预备) ? 
+            Data.Spells.拂晓舞 : Data.Spells.剑舞;
     }
 
     public void Build(Slot slot)
     {
-        slot.Add(GetSpell().GetSpell());
+        slot.Add(GetSpells().GetSpell());
     }
 }

@@ -15,6 +15,7 @@ public class 扇舞序 : ISlotResolver
 
     public int Check()
     {
+        if (!Data.Spells.扇舞序.IsUnlock()) return -1;
         if (!Qt.Instance.GetQt("扇舞")) return -1;
         if (幻扇 <= 0) return -1;
         if (Core.Resolve<JobApi_Dancer>().IsDancing) return -1;
@@ -51,14 +52,19 @@ public class 扇舞序 : ISlotResolver
         return -3;
     }
 
-    private static uint GetSpell()
+    private static uint GetSpells()
     {
         var enemyCount = TargetHelper.GetNearbyEnemyCount(5);
-        return enemyCount >= 3 && Qt.Instance.GetQt("AOE") ? Data.Spells.扇舞破 : Data.Spells.扇舞序;
+
+        if (Qt.Instance.GetQt("AOE") && Data.Spells.扇舞破.IsUnlock() &&
+            enemyCount >= 3)
+            return Data.Spells.扇舞破;
+
+        return Data.Spells.扇舞序;
     }
 
     public void Build(Slot slot)
     {
-        slot.Add(GetSpell().GetSpell());
+        slot.Add(GetSpells().GetSpell());
     }
 }

@@ -12,18 +12,6 @@ public class Dance_舞步 : ISlotResolver
     private static bool 大舞ing => Core.Me.HasAura(Data.Buffs.正在大舞);
     private static bool 小舞ing => Core.Me.HasAura(Data.Buffs.正在小舞);
 
-    private class 探戈 : ISlotSequence
-    {
-        public List<Action<Slot>> Sequence =>
-        [
-            (Slot slot) =>
-            {
-                slot.Wait2NextGcd = true;
-                slot.Add(Data.Spells.探戈.GetSpell());
-            }
-        ];
-    }
-
     public int Check()
     {
         if (!Core.Resolve<JobApi_Dancer>().IsDancing) return -1;
@@ -37,7 +25,7 @@ public class Dance_舞步 : ISlotResolver
         if (大舞ing && 舞步步骤 == 4)
         {
             slot.Add(Data.Spells.四色大舞结束.GetSpell());
-            slot.AppendSequence(new 探戈(), false);
+            slot.Add(Data.Spells.探戈.GetSpell());
             return;
         }
 

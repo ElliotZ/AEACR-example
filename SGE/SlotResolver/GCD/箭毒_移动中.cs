@@ -1,5 +1,6 @@
 ﻿using AEAssist.CombatRoutine.Module;
 using AEAssist.Helper;
+using yoyokity.Common;
 using yoyokity.SGE.QtUI;
 
 namespace yoyokity.SGE.SlotResolver.GCD;
@@ -19,6 +20,10 @@ public class 箭毒_移动中 : ISlotResolver
 
     public void Build(Slot slot)
     {
-        slot.Add(Data.Spells.箭毒adaptive.GetSpell());
+        var target = Data.Spells.箭毒adaptive.最优aoe目标(2);
+        var spell = !Qt.Instance.GetQt("AOE") || target == null
+            ? Data.Spells.箭毒adaptive.GetSpell()
+            : Data.Spells.箭毒adaptive.GetSpell(target);
+        slot.Add(spell);
     }
 }

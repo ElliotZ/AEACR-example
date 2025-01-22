@@ -29,6 +29,10 @@ public class 发炎_移动中 : ISlotResolver
 
     public void Build(Slot slot)
     {
-        slot.Add(Helper.GetActionChange(Data.Spells.发炎adaptive).GetSpell());
+        var target = Data.Spells.发炎adaptive.最优aoe目标(2);
+        var spell = !Qt.Instance.GetQt("AOE") || target == null
+            ? Data.Spells.发炎adaptive.GetSpell()
+            : Data.Spells.发炎adaptive.GetSpell(target);
+        slot.Add(spell);
     }
 }

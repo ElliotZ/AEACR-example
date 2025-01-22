@@ -12,6 +12,7 @@ public class 箭毒_AOE : ISlotResolver
 
     public int Check()
     {
+        if (!Qt.Instance.GetQt("AOE")) return -1;
         if (!Qt.Instance.GetQt("箭毒")) return -1;
         if (!Data.Spells.箭毒.GetSpell().IsUnlock()) return -1;
         if (SgeHelper.红豆 <= 0) return -2;

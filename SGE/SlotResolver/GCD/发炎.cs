@@ -3,6 +3,7 @@ using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
 using AEAssist.Extension;
 using AEAssist.Helper;
+using Dalamud.Game.ClientState.Objects.Types;
 using yoyokity.Common;
 using yoyokity.SGE.QtUI;
 
@@ -10,11 +11,15 @@ namespace yoyokity.SGE.SlotResolver.GCD;
 
 public class 发炎 : ISlotResolver
 {
+    private IBattleChara? Target { get; set; }
+
     public int Check()
     {
         if (!Qt.Instance.GetQt("发炎")) return -1;
         if (BattleData.Instance.Lock发炎) return -1;
         if (!Data.Spells.发炎adaptive.GetSpell().IsReadyWithCanCast()) return -2;
+
+        Target = null;
 
         //距离判断
         if (Core.Me.Distance(Core.Me.GetCurrTarget()!) >
@@ -37,13 +42,18 @@ public class 发炎 : ISlotResolver
         if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2000) return 4;
 
         //周围多余一个人就打
-        if (TargetHelper.GetNearbyEnemyCount(Core.Me.GetCurrTarget()!, 6, 5) > 1) return 5;
+        Target = Data.Spells.发炎adaptive.最优aoe目标(2);
+        if (Qt.Instance.GetQt("AOE") && Target != null)
+            return 5;
 
         return -1;
     }
 
     public void Build(Slot slot)
     {
-        slot.Add(Data.Spells.发炎adaptive.GetSpell());
+        var spell = Target == null
+            ? Data.Spells.发炎adaptive.GetSpell()
+            : Data.Spells.发炎adaptive.GetSpell(Target);
+        slot.Add(spell);
     }
 }

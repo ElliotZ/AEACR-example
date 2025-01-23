@@ -39,7 +39,7 @@ public class 发炎 : ISlotResolver
         if (Qt.Instance.GetQt("倾泻资源")) return 3;
 
         //快溢出了打
-        if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2000) return 4;
+        if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2500) return 4;
 
         //周围多余一个人就打
         Target = Data.Spells.发炎adaptive.最优aoe目标(2);

@@ -1,6 +1,7 @@
 ﻿using AEAssist;
 using AEAssist.CombatRoutine;
 using AEAssist.CombatRoutine.Module;
+using AEAssist.CombatRoutine.Module.Target;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
@@ -137,6 +138,17 @@ public static class Helper
     public static IBattleChara? 最优aoe目标(this uint spellId, int count)
     {
         return TargetHelper.GetMostCanTargetObjects(spellId, count);
+    }
+
+    /// <summary>
+    /// 获取非战斗状态时开了盾姿的人
+    /// </summary>
+    /// <returns></returns>
+    public static IBattleChara? GetMt()
+    {
+        PartyHelper.UpdateAllies();
+        return PartyHelper.CastableTanks
+            .FirstOrDefault(p => p.HasAnyAura([743, 1833, 79, 91]));
     }
 
     public static bool In团辅()

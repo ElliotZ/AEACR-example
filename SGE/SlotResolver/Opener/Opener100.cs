@@ -2,6 +2,7 @@
 using AEAssist.CombatRoutine.Module;
 using AEAssist.CombatRoutine.Module.Opener;
 using AEAssist.Helper;
+using yoyokity.Common;
 using yoyokity.SGE.QtUI;
 
 namespace yoyokity.SGE.SlotResolver.Opener;
@@ -38,9 +39,9 @@ public class Opener100 : IOpener
     {
         Qt.Reset();
 
+        const int startTime = 15000;
         if (!SgeHelper.学者搭档)
         {
-            const int startTime = 15000;
             countDownHandler.AddAction(startTime, Data.Spells.均衡);
             countDownHandler.AddAction(startTime - 1000, Data.Spells.均衡诊断, 单盾目标());
             countDownHandler.AddAction(startTime - 2500, Data.Spells.均衡);
@@ -50,7 +51,13 @@ public class Opener100 : IOpener
             countDownHandler.AddAction(6000, Data.Spells.均衡);
             countDownHandler.AddAction(5000, Data.Spells.均衡预后adaptive);
         }
-        
+        else
+        {
+            var target = Helper.GetMt();
+            if (target != null)
+                countDownHandler.AddAction(startTime, () => Data.Spells.混合.GetSpell(target));
+        }
+
         countDownHandler.AddAction(3500, Data.Spells.均衡);
         countDownHandler.AddAction(1500, Data.Spells.贤炮, SpellTargetType.Target);
     }

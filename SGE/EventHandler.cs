@@ -64,7 +64,8 @@ public class EventHandler : IRotationEventHandler
                 if (targetTarget != null &&
                     PartyHelper.Party.Contains(targetTarget) &&
                     targetTarget.IsTank() &&
-                    !targetTarget.HasLocalPlayerAura(Data.Buffs.关心))
+                    !targetTarget.HasLocalPlayerAura(Data.Buffs.关心) &&
+                    Core.Me.Distance(targetTarget) <= SettingMgr.GetSetting<GeneralSettings>().AttackRange + 27)
                 {
                     BattleData.Instance.最近一次心关时间 = AI.Instance.BattleData.CurrBattleTimeInMs;
                     var time = RandomHelper.RandomInt(1000, 2000);

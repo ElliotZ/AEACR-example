@@ -45,7 +45,7 @@ public class 发炎 : ISlotResolver
         }
         else
         {
-            if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 1500) return 4;
+            if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2400) return 4;
         }
         
         //周围多余一个人就打

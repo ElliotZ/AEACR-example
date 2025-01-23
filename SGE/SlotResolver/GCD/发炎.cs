@@ -39,8 +39,15 @@ public class 发炎 : ISlotResolver
         if (Qt.Instance.GetQt("倾泻资源")) return 3;
 
         //快溢出了打
-        if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2500) return 4;
-
+        if (SgeSettings.Instance.没妈妈自嗨打法)
+        {
+            if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 2600) return 4;
+        }
+        else
+        {
+            if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < 1500) return 4;
+        }
+        
         //周围多余一个人就打
         Target = Data.Spells.发炎adaptive.最优aoe目标(2);
         if (Qt.Instance.GetQt("AOE") && Target != null)

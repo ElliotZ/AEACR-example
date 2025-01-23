@@ -66,26 +66,22 @@ public class EventHandler : IRotationEventHandler
                     targetTarget.IsTank() &&
                     !targetTarget.HasLocalPlayerAura(Data.Buffs.关心))
                 {
-                    var _spell = Data.Spells.心关.GetSpell(target);
-                    if (_spell.IsReadyWithCanCast())
-                    {
-                        BattleData.Instance.最近一次心关时间 = AI.Instance.BattleData.CurrBattleTimeInMs;
-                        var time = RandomHelper.RandomInt(1000, 2000);
-                        给心关(time, _spell);
-                    }
+                    BattleData.Instance.最近一次心关时间 = AI.Instance.BattleData.CurrBattleTimeInMs;
+                    var time = RandomHelper.RandomInt(1000, 2000);
+                    给心关(time, targetTarget);
                 }
             }
         }
     }
 
-    private static async Task 给心关(int time, Spell spell)
+    private static async Task 给心关(int time, IBattleChara target)
     {
         if (SgeSettings.Instance.TimeLinesDebug)
-            LogHelper.Print("yoyo贤者", $"将在{time / 1000.0:F2}秒后对【{spell.SpecifyTarget?.Name}】使用心关");
+            LogHelper.Print("yoyo贤者", $"将在{time / 1000.0:F2}秒后对【{target.Name}】使用心关");
 
         await Coroutine.Instance.WaitAsync(time);
         var slot = new Slot();
-        slot.Add(spell);
+        slot.Add(Data.Spells.心关.GetSpell(target));
         AI.Instance.BattleData.HighPrioritySlots_OffGCD.Enqueue(slot);
     }
 

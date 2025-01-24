@@ -91,7 +91,7 @@ public class DncRotationEntry : IRotationEntry, IDisposable
         rot.SetRotationEventHandler(new EventHandler());
         rot.AddTriggerAction(new TriggerActionQt(), new TriggerActionHotkey(), new 团血检测人数设置(), new 自动群奶阈值设置(),
             new 自动单奶阈值设置());
-        rot.AddTriggerCondition(new TriggerCondQt(), new 搭档奶检测(), new 红豆检测());
+        rot.AddTriggerCondition(new TriggerCondQt(), new 搭档奶检测(), new 红豆检测(),new 是否为自嗨模式());
         rot.AddCanUseHighPrioritySlotCheck(Helper.HighPrioritySlotCheckFunc);
         return rot;
     }

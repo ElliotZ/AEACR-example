@@ -52,10 +52,6 @@ public class 剑舞拂晓舞 : ISlotResolver
 
     public void Build(Slot slot)
     {
-        var target = Data.Spells.剑舞.最优aoe目标(2);
-        var spell = !Qt.Instance.GetQt("AOE") || target == null
-            ? GetSpells().GetSpell()
-            : GetSpells().GetSpell(target);
-        slot.Add(spell);
+        slot.Add(GetSpells().GetSpell());
     }
 }

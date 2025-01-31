@@ -20,10 +20,6 @@ public class 流星舞_高优先 : ISlotResolver
 
     public void Build(Slot slot)
     {
-        var target = Data.Spells.流星舞.最优aoe目标(2);
-        var spell = !Qt.Instance.GetQt("AOE") || target == null
-            ? Data.Spells.流星舞.GetSpell()
-            : Data.Spells.流星舞.GetSpell(target);
-        slot.Add(spell);
+        slot.Add(Data.Spells.流星舞.GetSpell());
     }
 }

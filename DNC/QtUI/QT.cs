@@ -39,7 +39,7 @@ public static class Qt
         Instance.AddQt("小舞", true);
         Instance.AddQt("探戈", true);
         Instance.AddQt("百花", true);
-        Instance.AddQt("AOE", true);
+        Instance.AddQt("AOE", true,"启用后会根据周围目标打AOE连，同时剑舞、落幕舞、拂晓舞会自动选择最优AOE目标");
         Instance.AddQt("剑舞", true);
         Instance.AddQt("扇舞", true, "是否消耗【幻扇】");
         Instance.AddQt("无目标小舞", true, "进入战斗状态且没有目标时，小舞好了就开跳，但是不会跳结束");

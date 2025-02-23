@@ -6,6 +6,7 @@ using AEAssist.Helper;
 using AEAssist.MemoryApi;
 using Dalamud.Game.ClientState.Objects.Types;
 using yoyokity.Common;
+using yoyokity.SGE.QtUI;
 using Data = yoyokity.SGE.SlotResolver.Data;
 using Task = System.Threading.Tasks.Task;
 
@@ -108,25 +109,28 @@ public class EventHandler : IRotationEventHandler
                 Helper.目标Buff时间小于(Data.Buffs.均衡注药adaptive, 7000) &&
                 Helper.Buff时间小于(49, 4500))
             {
-                AI.Instance.BattleData.NextSlot = new Slot();
-                AI.Instance.BattleData.NextSlot.Add(Data.Spells.均衡.GetSpell());
-                AI.Instance.BattleData.NextSlot.Add(Data.Spells.均衡注药adaptive.GetSpell());
+                if (Qt.Instance.GetQt("爆发药补毒"))
+                {
+                    AI.Instance.BattleData.NextSlot = new Slot();
+                    AI.Instance.BattleData.NextSlot.Add(Data.Spells.均衡.GetSpell());
+                    AI.Instance.BattleData.NextSlot.Add(Data.Spells.均衡注药adaptive.GetSpell());
 
-                if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < Helper.GetAuraTimeLeft(49))
-                {
-                    AI.Instance.BattleData.NextSlot.Add(Data.Spells.发炎adaptive.GetSpell());
-                }
-                else if (Data.Spells.即刻咏唱.GetSpell().IsReadyWithCanCast())
-                {
-                    AI.Instance.BattleData.NextSlot.Add(Data.Spells.即刻咏唱.GetSpell());
-                    AI.Instance.BattleData.NextSlot.Add(Data.Spells.注药adaptive.GetSpell());
-                }
-                else if (SgeHelper.红豆 > 0)
-                {
-                    AI.Instance.BattleData.NextSlot.Add(Data.Spells.箭毒adaptive.GetSpell());
-                }
+                    if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds < Helper.GetAuraTimeLeft(49))
+                    {
+                        AI.Instance.BattleData.NextSlot.Add(Data.Spells.发炎adaptive.GetSpell());
+                    }
+                    else if (Data.Spells.即刻咏唱.GetSpell().IsReadyWithCanCast())
+                    {
+                        AI.Instance.BattleData.NextSlot.Add(Data.Spells.即刻咏唱.GetSpell());
+                        AI.Instance.BattleData.NextSlot.Add(Data.Spells.注药adaptive.GetSpell());
+                    }
+                    else if (SgeHelper.红豆 > 0)
+                    {
+                        AI.Instance.BattleData.NextSlot.Add(Data.Spells.箭毒adaptive.GetSpell());
+                    }
 
-                BattleData.Instance.上次爆发药补毒时间 = currTime;
+                    BattleData.Instance.上次爆发药补毒时间 = currTime;
+                }
             }
         }
     }

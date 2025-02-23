@@ -23,6 +23,7 @@ public static class Qt
         Instance.SetQt("保留1红豆", true);
         Instance.SetQt("根素", true);
         Instance.SetQt("倾泻资源", false);
+        Instance.SetQt("爆发药补毒", true);
     }
 
     public static void Build()
@@ -40,6 +41,7 @@ public static class Qt
         Instance.AddQt("心神", true, "心神风息");
         Instance.AddQt("根素", true, "蓝豆小于等于1时自动打");
         Instance.AddQt("倾泻资源", false, "狂暴鸿儒！");
+        Instance.AddQt("爆发药补毒", true, "在爆发药刚开始有上毒的情况下，爆发药结束前补毒+瞬发");
 
 
         Instance.AddHotkey("LB", new HotKeyResolver_LB());

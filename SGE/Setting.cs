@@ -50,6 +50,7 @@ public class SgeSettings
     public JobViewSave JobViewSave = new()
     {
         QtLineCount = 3,
+        QtUnVisibleList = ["爆发药补毒"],
         HotkeyUnVisibleList = ["寄生清汁", "拯救", "输血(目标的目标)", "白牛(目标的目标)"]
     }; // QT设置存档
 

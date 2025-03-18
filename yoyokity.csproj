@@ -34,6 +34,6 @@
     </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <OutputPath>D:\game\FF14\hack\Dalamud\Plugins\AE\ACR\yoyokity</OutputPath>
+        <OutputPath>D:\game\FF14\hack\Dalamud\Plugins\AE\ACR\yoyokity</OutputPath>
     </PropertyGroup>
 </Project>

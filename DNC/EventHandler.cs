@@ -92,11 +92,14 @@ public class EventHandler : IRotationEventHandler
     public void OnBattleUpdate(int currTime) //战斗中逐帧检测
     {
         //4人本自动绑舞伴
-        if (currTime > 1000 && !Core.Me.HasAura(Data.Buffs.舞伴buff) && !Core.Resolve<JobApi_Dancer>().IsDancing &&
-            PartyHelper.Party.Count <= 4 && BattleData.Instance.上次自动舞伴时间 + 5000 < currTime)
+        if (DncSettings.Instance.AutoPartner && Data.Spells.给舞伴.IsUnlock())
         {
-            自动舞伴();
-            BattleData.Instance.上次自动舞伴时间 = currTime;
+            if (currTime > 1000 && !Core.Me.HasAura(Data.Buffs.舞伴buff) && !Core.Resolve<JobApi_Dancer>().IsDancing &&
+                PartyHelper.Party.Count <= 4 && BattleData.Instance.上次自动舞伴时间 + 5000 < currTime)
+            {
+                自动舞伴();
+                BattleData.Instance.上次自动舞伴时间 = currTime;
+            }
         }
     }
 

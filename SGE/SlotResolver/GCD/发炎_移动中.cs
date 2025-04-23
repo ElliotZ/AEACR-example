@@ -15,6 +15,7 @@ public class 发炎_移动中 : ISlotResolver
         if (!Qt.Instance.GetQt("发炎")) return -1;
         if (BattleData.Instance.Lock发炎) return -1;
         if (!Data.Spells.发炎adaptive.GetSpell().IsReadyWithCanCast()) return -2;
+        if (Qt.Instance.GetQt("保留1发炎") && Data.Spells.发炎adaptive.GetSpell().Charges is > 0 and < 2) return -6;
 
         //距离判断
         if (Core.Me.Distance(Core.Me.GetCurrTarget()!) >

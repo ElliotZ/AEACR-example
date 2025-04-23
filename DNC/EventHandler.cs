@@ -113,7 +113,7 @@ public class EventHandler : IRotationEventHandler
     public void OnEnterRotation() //切换到当前ACR
     {
         LogHelper.Print(
-            "欢迎使用yoyo舞者ACR，使用说明请看：https://discord.gg/PvxfM6ZPxw");
+            "欢迎使用yoyo舞者ACR，反馈请到：https://discord.com/channels/1191648233454313482/1326201786046087329");
         Core.Resolve<MemApiChatMessage>()
             .Toast2("跟我念：傻逼riku和souma的妈死干净咯！", 1, 5000);
 

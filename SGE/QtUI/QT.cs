@@ -24,6 +24,7 @@ public static class Qt
         Instance.SetQt("根素", true);
         Instance.SetQt("倾泻资源", false);
         Instance.SetQt("爆发药补毒", true);
+        Instance.SetQt("保留1发炎", false);
     }
 
     public static void Build()
@@ -36,6 +37,7 @@ public static class Qt
         Instance.AddQt("群奶", true);
         Instance.AddQt("保留1蓝豆", true, "自动奶的时候保留一个蓝豆用于救急");
         Instance.AddQt("发炎", true, "会自动攒资源来对齐团辅或爆发药。\n如果有长时间远离导致溢出的情况，请用时间轴提前打掉。\n如果有多个目标则直接打空。");
+        Instance.AddQt("保留1发炎", false, "保留1个发炎，战斗前倒计时自动重置为关");
         Instance.AddQt("箭毒", true, "用于无损走位");
         Instance.AddQt("保留1红豆", true, "用于无损打爆发药，打aoe时收益过高会无视这个qt全部打空");
         Instance.AddQt("心神", true, "心神风息");
@@ -51,7 +53,7 @@ public static class Qt
             new HotKeyResolver(SpellsDefine.Surecast, SpellTargetType.Self, false));
         Instance.AddHotkey("向目标突进", new 突进hotkey());
         Instance.AddHotkey("即刻",
-            new HotKeyResolver(SpellsDefine.Swiftcast, SpellTargetType.Self, false,false));
+            new HotKeyResolver(SpellsDefine.Swiftcast, SpellTargetType.Self, false, false));
         Instance.AddHotkey("发炎", new 发炎hotkey());
         Instance.AddHotkey("箭毒", new 箭毒hotkey());
         Instance.AddHotkey("坚角青汁",
@@ -74,7 +76,8 @@ public static class Qt
             new HotKeyResolver(Data.Spells.拯救, SpellTargetType.Self));
         Instance.AddHotkey("输血(目标的目标)", new 输血hotkey());
         Instance.AddHotkey("白牛(目标的目标)", new 白牛hotkey());
-        
+        Instance.AddHotkey("单盾(血量最少目标)", new 单盾hotkey());
+
 
         //其余tab窗口
         ReadmeTab.Build(Instance);

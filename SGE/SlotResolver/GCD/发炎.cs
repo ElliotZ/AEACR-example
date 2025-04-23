@@ -19,6 +19,20 @@ public class 发炎 : ISlotResolver
         if (BattleData.Instance.Lock发炎) return -1;
         if (!Data.Spells.发炎adaptive.GetSpell().IsReadyWithCanCast()) return -2;
 
+        if (Qt.Instance.GetQt("保留1发炎")
+            && !Qt.Instance.GetQt("倾泻资源")
+            && Data.Spells.发炎adaptive.GetSpell().Charges is > 0 and < 2)
+        {
+            if (SgeSettings.Instance.没妈妈自嗨打法)
+            {
+                if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds >= 2600) return -8;
+            }
+            else
+            {
+                if (Data.Spells.发炎adaptive.GetSpell().Cooldown.TotalMilliseconds >= 2400) return -9;
+            }
+        }
+
         Target = null;
 
         //距离判断

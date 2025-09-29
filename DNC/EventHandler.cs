@@ -124,7 +124,7 @@ public class EventHandler : IRotationEventHandler
 
         //更新时间轴
         if (DncSettings.Instance.AutoUpdataTimeLines)
-            TimeLineUpdater.UpdateFiles(Helper.DncTimeLineUrl);
+            _ = TimeLineUpdater.UpdateFiles(Helper.DncTimeLineUrl);
     }
 
     public void OnExitRotation() //退出ACR

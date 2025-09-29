@@ -5,7 +5,7 @@ using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.Extension;
 using AEAssist.Helper;
 using AEAssist.MemoryApi;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using Data = yoyokity.SGE.SlotResolver.Data;
 
 namespace yoyokity.SGE.QtUI;
@@ -19,7 +19,7 @@ public class 消化hotkey : IHotkeyResolver
         ImGui.SetCursorPos(size * 0.1f);
         if (!Core.Resolve<MemApiIcon>().GetActionTexture(id, out var textureWrap))
             return;
-        ImGui.Image(textureWrap.ImGuiHandle, size1);
+        ImGui.Image(textureWrap.Handle, size1);
     }
 
     public void DrawExternal(Vector2 size, bool isActive)

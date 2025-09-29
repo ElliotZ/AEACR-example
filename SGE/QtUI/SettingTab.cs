@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Numerics;
 using AEAssist.CombatRoutine.View.JobView;
 using AEAssist.GUI;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using yoyokity.Common;
 using ItemHelper = yoyokity.Common.ItemHelper;
 

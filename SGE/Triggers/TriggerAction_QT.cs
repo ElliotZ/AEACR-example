@@ -1,7 +1,7 @@
 using AEAssist.CombatRoutine.Trigger;
 using AEAssist.GUI;
 using AEAssist.Helper;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using yoyokity.SGE.QtUI;
 
 namespace yoyokity.SGE.Triggers;

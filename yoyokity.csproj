@@ -1,39 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <AssemblyName>yoyokity</AssemblyName>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <NoWarn>$(NoWarn);CA1416</NoWarn>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     </PropertyGroup>
 
     <PropertyGroup>
-        <DalamudLibPath>$(AppData)\XIVLauncherCN\addon\Hooks\dev\</DalamudLibPath>
+        <NoWarn>CS1998;1701;1702;CS0414;CS8601;CS8602;CS8604;CS8603;IDE1006;IDE0300;MSB3270;MSB324;CS0649;CA2211;CS8509;CS8625;MSB3305;CS8618;CS8600;CS8605;CS8620;CS0436;CS0169;CS0105;CS1591</NoWarn>
+        <WarningsAsErrors>CS4014</WarningsAsErrors>
     </PropertyGroup>
+
 
     <ItemGroup>
-        <Reference Include="AEAssist">
-            <HintPath>D:\game\FF14\hack\Dalamud\Plugins\AE\AEAssistCNVersion\AEAssist\AEAssist.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Dalamud">
-            <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="ImGui.NET">
-            <HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="FFXIVClientStructs">
-            <HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
-            <Private>false</Private>
-        </Reference>
+        <PackageReference Include="AEAssist.NET" Version="*" ExcludeAssets="runtime" />
     </ItemGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>D:\game\FF14\hack\Dalamud\Plugins\AE\ACR\yoyokity</OutputPath>
-    </PropertyGroup>
 </Project>
